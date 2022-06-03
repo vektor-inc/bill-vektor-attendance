@@ -7,7 +7,7 @@
  * Author URI:      https://billvektor.com/
  * Text Domain:     bill-vektor-attendance
  * Domain Path:     /languages
- * Version:         1.3.0
+ * Version:         0.0.0
  *
  * @package         Bill_Vektor_attendance
  */
