@@ -13,14 +13,14 @@
  */
 
 
- /*
-	 テーマがBillVektorじゃない時は誤動作防止のために読み込ませない
- --------------------------------------------- */
+/**
+ * テーマがBillVektorじゃない時は誤動作防止のために読み込ませない
+ */
 add_action(
 	'after_setup_theme',
 	function() {
 		if ( ! function_exists( 'bill_get_post_type' ) ) {
-			// 読み込まずに終了
+			// 読み込まずに終了.
 			return;
 		}
 	}
@@ -50,16 +50,11 @@ function bva_doc_frame_attendance() {
 }
 add_action( 'bill-vektor-doc-frame', 'bva_doc_frame_attendance' );
 
-
-
-// require_once 'inc/custom-field-setting/custom-field-staff.php';
-
-	/*
-	-------------------------------------------
-	Add Post Type attendance
-	-------------------------------------------
-	*/
-	add_action( 'init', 'bill_add_post_type_attendance', 0 );
+/**
+ * Add Post Type attendance
+ *
+ * @return void
+ */
 function bill_add_post_type_attendance() {
 	register_post_type(
 		'attendance',
@@ -92,6 +87,7 @@ function bill_add_post_type_attendance() {
 		)
 	);
 }
+add_action( 'init', 'bill_add_post_type_attendance', 0 );
 
 function bva_remove_meta_boxes() {
 	remove_meta_box( 'commentstatusdiv', 'attendance', 'normal' );
@@ -118,6 +114,9 @@ function bva_doc_change_attendance_archive() {
 add_action( 'template_redirect', 'bva_doc_change_attendance_archive' );
 
 
+/**
+ * 古い順に並び替え
+ */
 add_action(
 	'pre_get_posts',
 	function( $wp_query ) {
