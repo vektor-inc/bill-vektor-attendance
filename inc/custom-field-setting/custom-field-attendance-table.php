@@ -64,11 +64,15 @@ class Attendance_Table_Custom_Fields {
 			} elseif ( '土' === $table_data[ $i ]['youbi'] ) {
 				$table .= '<tr class="bg-info">';
 			} else {
-				$table .= '<tr>';
+				if ( isset( $table_data[ $i ]['holiday'] ) && 'koukyuu' === $table_data[ $i ]['holiday'] ) {
+					$table .= '<tr class="bg-warning">  ' . $table_data[ $i ]['holiday'];
+				} else {
+					$table .= '<tr>';
+				}
 			}
 
-			$table  .= '<td>' . $i . '</td>';
-			$table  .= '<td>' . $table_data[ $i ]['youbi'] . '</td>';
+			$table .= '<td>' . $i . '</td>';
+			$table .= '<td>' . $table_data[ $i ]['youbi'] . '</td>';
 
 			$table .= '<td class="nowrap" style="white-space:nowrap">';
 

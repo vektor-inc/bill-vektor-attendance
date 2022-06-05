@@ -1,11 +1,11 @@
 <?php global $post; ?>
 <div class="bill-wrap">
 	<div class="container">
-	
+
 		<h1 class="bill-title">勤怠表</h1>
 
 		<p style="font-size:14px;">
-		<?php echo get_the_date( "Y年n月度" ); ?><br />
+		<?php echo get_the_date( 'Y年n月度' ); ?><br />
 		<?php echo esc_html( get_the_title( $post->attendance_staff ) ); ?>
 		</p>
 
@@ -20,11 +20,11 @@
 			<th>備考</th>
 		</tr>
 		<?php
-		$day_end = Bill_Attendance::get_end_day();
+		$day_end    = Bill_Attendance::get_end_day();
 		$table_data = Bill_Attendance::create_initial_table();
-		$table = '';
+		$table      = '';
 		for ( $i = 1; $i <= $day_end; $i++ ) {
-			if ( isset($table_data[ $i ]['holiday']) && 'syukujitsu' === $table_data[ $i ]['holiday']){
+			if ( isset( $table_data[ $i ]['holiday'] ) && 'syukujitsu' === $table_data[ $i ]['holiday'] ) {
 				$table .= '<tr class="bg-danger">';
 			} else {
 				if ( '日' === $table_data[ $i ]['youbi'] ) {
@@ -32,31 +32,37 @@
 				} elseif ( '土' === $table_data[ $i ]['youbi'] ) {
 					$table .= '<tr class="bg-info">';
 				} else {
-					$table .= '<tr>';
+					if ( isset( $table_data[ $i ]['holiday'] ) && 'koukyuu' === $table_data[ $i ]['holiday'] ) {
+						$table .= '<tr class="bg-warning">  ' . $table_data[ $i ]['holiday'];
+					} else {
+						$table .= '<tr>';
+					}
 				}
 			}
 
-
-			$table     .= '<td class="text-right">' . $i . '</td>';
-			$table     .= '<td class="text-right">' . $table_data[ $i ]['youbi'] . '</td>';
-			$table     .= '<td class="text-right">' . Bill_Attendance::comvert_time( $table_data[ $i ]['time_start'] ) . '</td>';
-			$table     .= '<td class="text-right">' . Bill_Attendance::comvert_time( $table_data[ $i ]['time_end'] ) . '</td>';
-			$table     .= '<td class="text-right">' . Bill_Attendance::comvert_time( $table_data[ $i ]['time_rest'] ) . '</td>';
+			$table .= '<td class="text-right">' . $i . '</td>';
+			$table .= '<td class="text-right">' . $table_data[ $i ]['youbi'] . '</td>';
+			$table .= '<td class="text-right">' . Bill_Attendance::comvert_time( $table_data[ $i ]['time_start'] ) . '</td>';
+			$table .= '<td class="text-right">' . Bill_Attendance::comvert_time( $table_data[ $i ]['time_end'] ) . '</td>';
+			$table .= '<td class="text-right">' . Bill_Attendance::comvert_time( $table_data[ $i ]['time_rest'] ) . '</td>';
 
 			$time_total = Bill_Attendance::comvert_time_num( $table_data[ $i ]['time_end'] ) - Bill_Attendance::comvert_time_num( $table_data[ $i ]['time_start'] ) - Bill_Attendance::comvert_time_num( $table_data[ $i ]['time_rest'] );
 			$table     .= '<td class="text-right">' . Bill_Attendance::comvert_time( $time_total ) . '</td>';
 
 			$bikou = '';
-			if ( ! empty( $table_data[ $i ]['holiday'] ) ){
+			if ( ! empty( $table_data[ $i ]['holiday'] ) ) {
 				$holiday = array(
 					'syukujitsu' => '祝日',
-					'koukyuu' => '公休',
-					'yuukyuu' => '有給',
+					'koukyuu'    => '公休',
+					'yuukyuu'    => '有給',
 				);
-				$bikou = $holiday[$table_data[ $i ]['holiday']];
+				$bikou   = $holiday[ $table_data[ $i ]['holiday'] ];
 			}
-			$table     .= '<td>'.$bikou.'</td>';
-			$table     .= '</tr>';
+			if ( ! empty( $table_data[ $i ]['bikou'] ) ) {
+				$bikou .= ' : ' . $table_data[ $i ]['bikou'];
+			}
+			$table .= '<td>' . $bikou . '</td>';
+			$table .= '</tr>';
 		}
 		echo $table;
 		?>
