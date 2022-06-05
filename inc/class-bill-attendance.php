@@ -83,14 +83,24 @@ class Bill_Attendance {
 				$table_data[ $i ]['time_end']   = self::comvert_time( 0 );
 				$table_data[ $i ]['time_rest']  = self::comvert_time( 0 );
 			} else {
-				// 下村.
-				$start_minute = sprintf( '%02d', mt_rand( 25, 35 ) );
-				$end_minute   = sprintf( '%02d', mt_rand( 0, 30 ) );
-				$rest_minute  = sprintf( '%02d', mt_rand( 30, 40 ) );
 
-				$table_data[ $i ]['time_start'] = '9 : ' . $start_minute;
-				$table_data[ $i ]['time_end']   = '18 : ' . $end_minute;
-				$table_data[ $i ]['time_rest']  = '0 : ' . $rest_minute;
+				// 基準となる開始時間（10進数）.
+				$time_start_base = 9.0;
+				// 基準となる休憩時間（10進数）.
+				$time_rest_base = 0.75;
+				// 開始時間のゆらぎ（分）.
+				$range_kinmu    = mt_rand( -15, 15 ) / 60;
+				// 休憩時間のゆらぎ（分）.
+				$range_rest     = mt_rand( -10, 10 ) / 60;
+
+				$time_start = $time_start_base + $range_kinmu;
+				$time_rest  = $time_rest_base + $range_rest;
+				$time_end   = $time_start_base + $time_rest_base + 8.05 + $range_kinmu;
+
+				$table_data[ $i ]['time_start'] = self::comvert_time( $time_start );
+				$table_data[ $i ]['time_end']   = self::comvert_time( $time_end );
+				$table_data[ $i ]['time_rest']  = self::comvert_time( $time_rest );
+
 			}
 
 			$table_data[ $i ]['bikou']          = '';

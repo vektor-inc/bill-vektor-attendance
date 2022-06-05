@@ -113,7 +113,6 @@ function bva_doc_change_attendance_archive() {
 }
 add_action( 'template_redirect', 'bva_doc_change_attendance_archive' );
 
-
 /**
  * 古い順に並び替え
  */
@@ -127,6 +126,7 @@ add_action(
 
 		if ( $wp_query->is_tax( 'attendance-cat' ) ) {
 			$wp_query->set( 'order', 'ASC' );
+			$wp_query->set( 'posts_per_page', -1 );
 			return;
 		}
 	}
