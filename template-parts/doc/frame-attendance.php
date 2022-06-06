@@ -33,7 +33,7 @@
 					$table .= '<tr class="bg-info">';
 				} else {
 					if ( isset( $table_data[ $i ]['holiday'] ) && 'koukyuu' === $table_data[ $i ]['holiday'] ) {
-						$table .= '<tr class="bg-warning">  ' . $table_data[ $i ]['holiday'];
+						$table .= '<tr class="bg-warning">';
 					} else {
 						$table .= '<tr>';
 					}
