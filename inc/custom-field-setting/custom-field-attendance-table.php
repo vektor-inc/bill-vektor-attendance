@@ -76,23 +76,33 @@ class Attendance_Table_Custom_Fields {
 
 			$table .= '<td class="nowrap" style="white-space:nowrap">';
 
+			// 祝日.
 			$checked = '';
 			if ( isset( $table_data[ $i ]['holiday'] ) ) {
 				$checked = checked( $table_data[ $i ]['holiday'], 'syukujitsu', false );
 			}
 			$table .= '<label><input type="checkbox" id="attendance_table[' . $i . '][holiday]" name="attendance_table[' . $i . '][holiday]" value="syukujitsu"' . $checked . '> 祝日</label></br>';
 
+			// 公休.
 			$checked = '';
 			if ( isset( $table_data[ $i ]['holiday'] ) ) {
 				$checked = checked( $table_data[ $i ]['holiday'], 'koukyuu', false );
 			}
 			$table .= '<label><input type="checkbox" id="attendance_table[' . $i . '][holiday]" name="attendance_table[' . $i . '][holiday]" value="koukyuu"' . $checked . '> 公休</label></br>';
 
+			// 有給.
 			$checked = '';
 			if ( isset( $table_data[ $i ]['holiday'] ) ) {
 				$checked = checked( $table_data[ $i ]['holiday'], 'yuukyuu', false );
 			}
-			$table .= '<label><input type="checkbox" id="attendance_table[' . $i . '][holiday]" name="attendance_table[' . $i . '][holiday]" value="yuukyuu"' . $checked . '> 有給</label>';
+			$table .= '<label><input type="checkbox" id="attendance_table[' . $i . '][holiday]" name="attendance_table[' . $i . '][holiday]" value="yuukyuu"' . $checked . '> 有給</label></br>';
+
+			// 半給.
+			$checked = '';
+			if ( isset( $table_data[ $i ]['holiday'] ) ) {
+				$checked = checked( $table_data[ $i ]['holiday'], 'hankyuu', false );
+			}
+			$table .= '<label><input type="checkbox" id="attendance_table[' . $i . '][holiday]" name="attendance_table[' . $i . '][holiday]" value="hankyuu"' . $checked . '> 半休</label>';
 
 			$table .= '</td>';
 			$table .= '<td><input class="flexible-field-item" type="text" id="attendance_table[' . $i . '][time_start]" name="attendance_table[' . $i . '][time_start]" value="' . $attendance->comvert_time( $table_data[ $i ]['time_start'] ) . '"></td>';

@@ -63,9 +63,12 @@ class Bill_Attendance {
 				$youbi_num                 = date( 'w', $timestamp );
 				$table_data[ $i ]['youbi'] = $week[ $youbi_num ];
 				if ( ! empty( $table_data[ $i ]['holiday'] ) ) {
+					// 半休以外の場合は勤務時間0.
+					if ( 'hankyuu' !== $table_data[ $i ]['holiday'] ) {
 						$table_data[ $i ]['time_start'] = self::comvert_time( 0 );
 						$table_data[ $i ]['time_end']   = self::comvert_time( 0 );
 						$table_data[ $i ]['time_rest']  = self::comvert_time( 0 );
+					}
 				}
 			}
 			return $table_data;

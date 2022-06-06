@@ -32,8 +32,12 @@
 				} elseif ( '土' === $table_data[ $i ]['youbi'] ) {
 					$table .= '<tr class="bg-info">';
 				} else {
-					if ( isset( $table_data[ $i ]['holiday'] ) && 'koukyuu' === $table_data[ $i ]['holiday'] ) {
-						$table .= '<tr class="bg-warning">';
+					if ( isset( $table_data[ $i ]['holiday'] ) ) {
+						if ( 'koukyuu' === $table_data[ $i ]['holiday'] ) {
+							$table .= '<tr class="bg-warning">';
+						} elseif ( 'yuukyuu' === $table_data[ $i ]['holiday'] || 'hankyuu' === $table_data[ $i ]['holiday']  ) {
+							$table .= '<tr class="bg-success">';
+						}
 					} else {
 						$table .= '<tr>';
 					}
@@ -55,6 +59,7 @@
 					'syukujitsu' => '祝日',
 					'koukyuu'    => '公休',
 					'yuukyuu'    => '有給',
+					'hankyuu'    => '有給（半休）',
 				);
 				$bikou   = $holiday[ $table_data[ $i ]['holiday'] ];
 			}
