@@ -27,13 +27,13 @@ class Attendance_Normal_Custom_Fields {
 	public static function fields_form() {
 		global $post;
 
-		$custom_fields_array = Attendance_Normal_Custom_Fields::custom_fields_array();
+		$custom_fields_array = self::custom_fields_array();
 		$befor_custom_fields = '';
 		VK_Custom_Field_Builder::form_table( $custom_fields_array, $befor_custom_fields );
 	}
 
 	public static function save_custom_fields() {
-		$custom_fields_array = Attendance_Normal_Custom_Fields::custom_fields_array();
+		$custom_fields_array = self::custom_fields_array();
 		VK_Custom_Field_Builder::save_cf_value( $custom_fields_array );
 	}
 
@@ -56,7 +56,7 @@ class Attendance_Normal_Custom_Fields {
 		}
 
 		$custom_fields_array = array(
-			'attendance_staff'         => array(
+			'attendance_staff'    => array(
 				'label'       => 'スタッフ',
 				'type'        => 'select',
 				'description' => 'スタッフは<a href="' . admin_url( '/post-new.php?post_type=staff' ) . '" target="_blank">こちら</a>から登録してください。',
@@ -64,38 +64,38 @@ class Attendance_Normal_Custom_Fields {
 				'options'     => $staff,
 			),
 			// 'attendance_staff_number'  => array(
-			// 	'label'       => 'Staff No.',
-			// 	'type'        => 'text',
-			// 	'description' => '支給分一覧ではこの値が小さい順に表示されます。',
-			// 	'required'    => false,
+			// 'label'       => 'Staff No.',
+			// 'type'        => 'text',
+			// 'description' => '支給分一覧ではこの値が小さい順に表示されます。',
+			// 'required'    => false,
 			// ),
-			'attendance_generate'  => array(
+			'attendance_generate' => array(
 				'label'       => '勤怠自動入力',
 				'type'        => 'checkbox',
 				'description' => 'チェックが入っていると次回再読み込み時に自動で値が入ります',
 				'required'    => true,
-				'options' => array(
-					'true' => 'リセット & 作成する',
+				'options'     => array(
+					true   => '時間を新規自動入力または再生成する',
 				),
 
 			),
 			// 'attendance_base_start'  => array(
-			// 	'label'       => '標準開始時間',
-			// 	'type'        => 'text',
-			// 	'description' => '',
-			// 	'required'    => false,
+			// 'label'       => '標準開始時間',
+			// 'type'        => 'text',
+			// 'description' => '',
+			// 'required'    => false,
 			// ),
 			// 'attendance_base_rest'  => array(
-			// 	'label'       => '標準休憩時間',
-			// 	'type'        => 'text',
-			// 	'description' => '',
-			// 	'required'    => false,
+			// 'label'       => '標準休憩時間',
+			// 'type'        => 'text',
+			// 'description' => '',
+			// 'required'    => false,
 			// ),
 			// 'attendance_base_rest'  => array(
-			// 	'label'       => '揺らぎ_開始',
-			// 	'type'        => 'text',
-			// 	'description' => '',
-			// 	'required'    => false,
+			// 'label'       => '揺らぎ_開始',
+			// 'type'        => 'text',
+			// 'description' => '',
+			// 'required'    => false,
 			// ),
 		);
 		return $custom_fields_array;

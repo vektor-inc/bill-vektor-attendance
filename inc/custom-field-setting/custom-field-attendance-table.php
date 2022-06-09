@@ -28,8 +28,6 @@ class Attendance_Table_Custom_Fields {
 
 		$data = get_post_meta( $post->ID, 'attendance_table', true );
 
-		// print '<pre style="text-align:left">';print_r($data);print '</pre>';
-
 		$day_end = Bill_Attendance::get_end_day();
 
 		$table_data = Bill_Attendance::create_initial_table();
@@ -152,9 +150,6 @@ class Attendance_Table_Custom_Fields {
 		$field       = 'attendance_table';
 		$field_value = ( isset( $_POST[ $field ] ) ) ? $_POST[ $field ] : '';
 
-		// print '<pre style="text-align:left">';print_r($field_value);print '</pre>';
-		// die();
-
 		$post_id = '';
 		if ( isset( $post->ID ) ) {
 			$post_id = $post->ID;
@@ -171,9 +166,6 @@ class Attendance_Table_Custom_Fields {
 		} elseif ( $field_value == '' ) {
 			delete_post_meta( $post_id, $field, get_post_meta( $post_id, $field, true ) );
 		}
-		// $data = get_post_meta( $post->ID, $field, true );
-		// print '<pre style="text-align:left">';print_r($data);print '</pre>';
-		// die();
 	}
 
 	public static function custom_fields_attendance_array() {
