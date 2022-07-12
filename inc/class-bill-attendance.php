@@ -66,8 +66,8 @@ class Bill_Attendance {
 		$defaults = array(
 			'time_start_base'   => 9.0, // 基準となる開始時間（10進数）.
 			'time_rest_base'    => 0.75, // 基準となる休憩時間（10進数）.
-			'range_kinmu_minus' => -15, // 勤務開始時間のマイナス値（分）.
-			'range_kinmu_plus'  => 15, // 勤務開始時間のプラス値（分）.
+			'range_kinmu_minus' => -20, // 勤務開始時間のマイナス値（分）.
+			'range_kinmu_plus'  => 30, // 勤務開始時間のプラス値（分）.
 			'range_rest_minus'  => 0, // 休憩時間のマイナス値（分）.
 			'range_rest_plus'   => 15, // 休憩時間のプラス値（分）.
 		);
