@@ -56,7 +56,32 @@ class Bill_Attendance {
 		return date( 'd', strtotime( 'last day of ' . get_the_date( 'Y-m' ) ) );
 	}
 
+	/**
+	 * 初期の入力テーブルデータを作成
+	 */
 	public static function create_initial_table() {
+
+		global $post;
+
+		$defaults = array(
+			'time_start_base'   => 9.0, // 基準となる開始時間（10進数）.
+			'time_rest_base'    => 0.75, // 基準となる休憩時間（10進数）.
+			'range_kinmu_minus' => -15, // 勤務開始時間のマイナス値（分）.
+			'range_kinmu_plus'  => 15, // 勤務開始時間のプラス値（分）.
+			'range_rest_minus'  => 0, // 休憩時間のマイナス値（分）.
+			'range_rest_plus'   => 15, // 休憩時間のプラス値（分）.
+		);
+
+		foreach ( $defaults as $key => $value ) {
+			$meta_value = get_post_meta( $post->ID, $key, true );
+			if ( $meta_value || '0' === $meta_value ) {
+				$args[$key] = floatval($meta_value);
+			} else {
+				$args[$key] = $value;
+			}
+		}
+
+		$args = wp_parse_args( $args, $defaults );
 
 		$day_end = self::get_end_day();
 		$year    = get_the_date( 'Y' );
@@ -71,16 +96,10 @@ class Bill_Attendance {
 			'土', // 6
 		);
 
-		global $post;
 		$saved_data = get_post_meta( $post->ID, 'attendance_table', true );
 		$generate   = get_post_meta( $post->ID, 'attendance_generate', true );
 
 		$table_data = array();
-
-		// 基準となる開始時間（10進数）.
-		$time_start_base = 9.0;
-		// 基準となる休憩時間（10進数）.
-		$time_rest_base = 0.75;
 
 		for ( $i = 1; $i <= $day_end; $i++ ) {
 
@@ -111,18 +130,17 @@ class Bill_Attendance {
 
 				// 自動生成の場合 .
 				// ※ 半休の場合は時間が手動で入力されているので自動生成しない .
-				if ( 
-					$generate && ( isset( $table_data[ $i ]['holiday'] ) && 'hankyuu' !== $table_data[ $i ]['holiday'] ) 
+				if ( $generate && ( isset( $table_data[ $i ]['holiday'] ) && 'hankyuu' !== $table_data[ $i ]['holiday'] )
 				) {
 
 					// 開始時間のゆらぎ（分）.
-					$range_kinmu = mt_rand( -15, 15 ) / 60;
+					$range_kinmu = mt_rand( $args['range_kinmu_minus'], $args['range_kinmu_plus'] ) / 60;
 					// 休憩時間のゆらぎ（分）.
-					$range_rest = mt_rand( 0, 15 ) / 60;
+					$range_rest = mt_rand( $args['range_rest_minus'], $args['range_rest_plus'] ) / 60;
 
-					$time_start = $time_start_base + $range_kinmu;
-					$time_rest  = $time_rest_base + $range_rest;
-					$time_end   = $time_start_base + $time_rest_base + 8.0 + $range_kinmu;
+					$time_start = $args['time_start_base'] + $range_kinmu;
+					$time_rest  = $args['time_rest_base'] + $range_rest;
+					$time_end   = $args['time_start_base'] + $args['time_rest_base'] + 8.0 + $range_kinmu;
 
 					$table_data[ $i ]['time_start'] = self::comvert_time( $time_start );
 					$table_data[ $i ]['time_end']   = self::comvert_time( $time_end );

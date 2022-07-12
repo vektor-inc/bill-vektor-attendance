@@ -36,7 +36,7 @@ require_once 'inc/custom-field-setting/custom-field-attendance-normal.php';
 require_once 'inc/custom-field-setting/custom-field-attendance-table.php';
 
 function bva_doc_change( $doc_change ) {
-	if ( get_post_type() == 'attendance' ) {
+	if ( get_post_type() === 'attendance' ) {
 		$doc_change = true;
 	}
 	 return $doc_change;
@@ -44,7 +44,7 @@ function bva_doc_change( $doc_change ) {
 add_filter( 'bill-vektor-doc-change', 'bva_doc_change' );
 
 function bva_doc_frame_attendance() {
-	if ( get_post_type() == 'attendance' ) {
+	if ( get_post_type() === 'attendance' ) {
 		require_once 'template-parts/doc/frame-attendance.php';
 	}
 }

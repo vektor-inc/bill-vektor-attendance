@@ -63,40 +63,51 @@ class Attendance_Normal_Custom_Fields {
 				'required'    => true,
 				'options'     => $staff,
 			),
-			// 'attendance_staff_number'  => array(
-			// 'label'       => 'Staff No.',
-			// 'type'        => 'text',
-			// 'description' => '支給分一覧ではこの値が小さい順に表示されます。',
-			// 'required'    => false,
-			// ),
 			'attendance_generate' => array(
 				'label'       => '勤怠自動入力',
 				'type'        => 'checkbox',
 				'description' => 'チェックが入っていると次回再読み込み時に自動で値が入ります',
 				'required'    => true,
 				'options'     => array(
-					true   => '時間を新規自動入力または再生成する',
+					true => '時間を新規自動入力または再生成する',
 				),
-
 			),
-			// 'attendance_base_start'  => array(
-			// 'label'       => '標準開始時間',
-			// 'type'        => 'text',
-			// 'description' => '',
-			// 'required'    => false,
-			// ),
-			// 'attendance_base_rest'  => array(
-			// 'label'       => '標準休憩時間',
-			// 'type'        => 'text',
-			// 'description' => '',
-			// 'required'    => false,
-			// ),
-			// 'attendance_base_rest'  => array(
-			// 'label'       => '揺らぎ_開始',
-			// 'type'        => 'text',
-			// 'description' => '',
-			// 'required'    => false,
-			// ),
+			'time_start_base'     => array(
+				'label'       => '基準となる開始時間（10進数）',
+				'type'        => 'text',
+				'description' => '',
+				'required'    => false,
+			),
+			'time_rest_base'      => array(
+				'label'       => '基準となる休憩時間（10進数）',
+				'type'        => 'text',
+				'description' => '',
+				'required'    => false,
+			),
+			'range_kinmu_minus'   => array(
+				'label'       => '勤務開始時間のマイナス値（分）',
+				'type'        => 'text',
+				'description' => '',
+				'required'    => false,
+			),
+			'range_kinmu_plus'    => array(
+				'label'       => '勤務開始時間のプラス値（分）',
+				'type'        => 'text',
+				'description' => '',
+				'required'    => false,
+			),
+			'range_rest_minus'    => array(
+				'label'       => '休憩時間のマイナス値（分）',
+				'type'        => 'text',
+				'description' => '',
+				'required'    => false,
+			),
+			'range_rest_plus'     => array(
+				'label'       => '休憩時間のプラス値（分）',
+				'type'        => 'text',
+				'description' => '',
+				'required'    => false,
+			),
 		);
 		return $custom_fields_array;
 	}
