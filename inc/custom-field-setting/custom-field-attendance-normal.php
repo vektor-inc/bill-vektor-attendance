@@ -26,15 +26,62 @@ class Attendance_Normal_Custom_Fields {
 
 	public static function fields_form() {
 		global $post;
-
-		$custom_fields_array = self::custom_fields_array();
 		$befor_custom_fields = '';
+		$custom_fields_array = self::custom_fields_array();
 		VK_Custom_Field_Builder::form_table( $custom_fields_array, $befor_custom_fields );
+
+		echo '<h4>今月の基準時間</h4>';
+		echo '<p>スタッフ毎の基準時間は<a href="' . admin_url( '/edit.php?post_type=staff&page=staff-setting' ) . '" target="_blank">こちら</a>から設定する事ができますので、こちらの欄は基本的に未入力でかまいません。<br>こちらに入力がある場合はこちらの時間が優先されます。</p>';
+
+		$custom_fields_times = self::custom_fields_times();
+		VK_Custom_Field_Builder::form_table( $custom_fields_times, $befor_custom_fields );
 	}
 
 	public static function save_custom_fields() {
-		$custom_fields_array = self::custom_fields_array();
-		VK_Custom_Field_Builder::save_cf_value( $custom_fields_array );
+		VK_Custom_Field_Builder::save_cf_value( self::custom_fields_array() );
+		VK_Custom_Field_Builder::save_cf_value( self::custom_fields_times() );
+	}
+
+	public static function custom_fields_times() {
+		$custom_fields_array = array(
+			'time_start_base'     => array(
+				'label'       => '基準となる開始時間（10進数）',
+				'type'        => 'text',
+				'description' => '',
+				'required'    => false,
+			),
+			'time_rest_base'      => array(
+				'label'       => '基準となる休憩時間（10進数）',
+				'type'        => 'text',
+				'description' => '',
+				'required'    => false,
+			),
+			'range_kinmu_minus'   => array(
+				'label'       => '勤務開始時間のマイナス値（分）',
+				'type'        => 'text',
+				'description' => '',
+				'required'    => false,
+			),
+			'range_kinmu_plus'    => array(
+				'label'       => '勤務開始時間のプラス値（分）',
+				'type'        => 'text',
+				'description' => '',
+				'required'    => false,
+			),
+			'range_rest_minus'    => array(
+				'label'       => '休憩時間のマイナス値（分）',
+				'type'        => 'text',
+				'description' => '',
+				'required'    => false,
+			),
+			'range_rest_plus'     => array(
+				'label'       => '休憩時間のプラス値（分）',
+				'type'        => 'text',
+				'description' => '',
+				'required'    => false,
+			),
+		);
+		return $custom_fields_array;
 	}
 
 	public static function custom_fields_array() {
@@ -71,42 +118,6 @@ class Attendance_Normal_Custom_Fields {
 				'options'     => array(
 					true => '時間を新規自動入力または再生成する',
 				),
-			),
-			'time_start_base'     => array(
-				'label'       => '基準となる開始時間（10進数）',
-				'type'        => 'text',
-				'description' => '',
-				'required'    => false,
-			),
-			'time_rest_base'      => array(
-				'label'       => '基準となる休憩時間（10進数）',
-				'type'        => 'text',
-				'description' => '',
-				'required'    => false,
-			),
-			'range_kinmu_minus'   => array(
-				'label'       => '勤務開始時間のマイナス値（分）',
-				'type'        => 'text',
-				'description' => '',
-				'required'    => false,
-			),
-			'range_kinmu_plus'    => array(
-				'label'       => '勤務開始時間のプラス値（分）',
-				'type'        => 'text',
-				'description' => '',
-				'required'    => false,
-			),
-			'range_rest_minus'    => array(
-				'label'       => '休憩時間のマイナス値（分）',
-				'type'        => 'text',
-				'description' => '',
-				'required'    => false,
-			),
-			'range_rest_plus'     => array(
-				'label'       => '休憩時間のプラス値（分）',
-				'type'        => 'text',
-				'description' => '',
-				'required'    => false,
 			),
 		);
 		return $custom_fields_array;
