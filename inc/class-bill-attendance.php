@@ -152,7 +152,7 @@ class Bill_Attendance {
 
 					$time_start = $args['time_start_base'] + $range_kinmu;
 					$time_rest  = $args['time_rest_base'] + $range_rest;
-					$time_end   = $args['time_start_base'] + $args['time_rest_base'] + 8.0 + $range_kinmu;
+					$time_end   = $args['time_start_base'] + $args['time_rest_base'] + 8.1 + $range_kinmu;
 
 					$table_data[ $i ]['time_start'] = self::comvert_time( $time_start );
 					$table_data[ $i ]['time_end']   = self::comvert_time( $time_end );
