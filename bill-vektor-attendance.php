@@ -34,6 +34,7 @@ add_action(
 require_once 'inc/class-bill-attendance.php';
 require_once 'inc/custom-field-setting/custom-field-attendance-normal.php';
 require_once 'inc/custom-field-setting/custom-field-attendance-table.php';
+require_once 'inc/custom-field-setting/custom-field-attendance-staff.php';
 
 function bva_doc_change( $doc_change ) {
 	if ( get_post_type() === 'attendance' ) {

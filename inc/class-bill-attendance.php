@@ -72,12 +72,24 @@ class Bill_Attendance {
 			'range_rest_plus'   => 15, // 休憩時間のプラス値（分）.
 		);
 
+		// スタッフの投稿idを取得
+		$staff_post_id = get_post_meta( $post->ID, 'attendance_staff', true );
+
 		foreach ( $defaults as $key => $value ) {
-			$meta_value = get_post_meta( $post->ID, $key, true );
-			if ( $meta_value || '0' === $meta_value ) {
-				$args[$key] = floatval($meta_value);
+			$month_meta_value = get_post_meta( $post->ID, $key, true );
+
+			// カスタムフィールドで個別に指定がある場合はそちらを優先する.
+			if ( $month_meta_value || '0' === $month_meta_value ) {
+				$args[ $key ] = floatval( $month_meta_value );
 			} else {
-				$args[$key] = $value;
+				// スタッフ毎の指定を取得
+				$staff_meta_value = get_post_meta( $staff_post_id, $key, true );
+				// スタッフに時間が登録してある場合
+				if ( $staff_meta_value || '0' === $staff_meta_value ) {
+					$args[ $key ] = floatval( $staff_meta_value );
+				} else {
+					$args[ $key ] = $value;
+				}
 			}
 		}
 
