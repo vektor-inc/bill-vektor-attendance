@@ -20,7 +20,7 @@ class Bill_Attendance {
 		// 分に変換.
 		$time_minites = ( $time_num - $time_hour ) * 60;
 		if ( 60 === $time_minites ) {
-			$time_hour++;
+			++$time_hour;
 			$time_minites = '00';
 		}
 		$display_time = $time_hour . ' : ' . sprintf( '%02d', round( $time_minites ) );
@@ -65,11 +65,11 @@ class Bill_Attendance {
 
 		$defaults = array(
 			'time_start_base'   => 9.0, // 基準となる開始時間（10進数）.
-			'time_rest_base'    => 0.75, // 基準となる休憩時間（10進数）.
+			'time_rest_base'    => 1, // 基準となる休憩時間（10進数）.
 			'range_kinmu_minus' => -20, // 勤務開始時間のマイナス値（分）.
-			'range_kinmu_plus'  => 30, // 勤務開始時間のプラス値（分）.
-			'range_rest_minus'  => 0, // 休憩時間のマイナス値（分）.
-			'range_rest_plus'   => 15, // 休憩時間のプラス値（分）.
+			'range_kinmu_plus'  => 25, // 勤務開始時間のプラス値（分）.
+			'range_rest_minus'  => -5, // 休憩時間のマイナス値（分）.
+			'range_rest_plus'   => 10, // 休憩時間のプラス値（分）.
 		);
 
 		// スタッフの投稿idを取得
@@ -183,5 +183,4 @@ class Bill_Attendance {
 		}
 		return $table_data;
 	}
-
 }

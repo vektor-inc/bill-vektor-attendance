@@ -64,7 +64,7 @@
 				$bikou   = $holiday[ $table_data[ $i ]['holiday'] ];
 			}
 			if ( ! empty( $table_data[ $i ]['bikou'] ) ) {
-				$bikou .= ' : ' . $table_data[ $i ]['bikou'];
+				$bikou .= $table_data[ $i ]['bikou'];
 			}
 			$table .= '<td>' . $bikou . '</td>';
 			$table .= '</tr>';
