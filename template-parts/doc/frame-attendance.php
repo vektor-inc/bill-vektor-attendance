@@ -11,12 +11,12 @@
 
 		<table class="table table-bordered table-attendance">
 		<tr>
-			<th>日付</th>
-			<th>曜日</th>
-			<th>始業時間</th>
-			<th>終業時間</th>
-			<th>休憩時間</th>
-			<th>実働時間</th>
+			<th style="width:50px">日付</th>
+			<th style="width:50px">曜日</th>
+			<th style="width:100px">始業時間</th>
+			<th style="width:100px">終業時間</th>
+			<th style="width:100px">休憩時間</th>
+			<th style="width:100px">実働時間</th>
 			<th>備考</th>
 		</tr>
 		<?php
@@ -64,6 +64,9 @@
 				$bikou   = $holiday[ $table_data[ $i ]['holiday'] ];
 			}
 			if ( ! empty( $table_data[ $i ]['bikou'] ) ) {
+				if ( ! empty( $bikou ) ) {
+					$bikou .= ' : ';
+				}
 				$bikou .= $table_data[ $i ]['bikou'];
 			}
 			$table .= '<td>' . $bikou . '</td>';
